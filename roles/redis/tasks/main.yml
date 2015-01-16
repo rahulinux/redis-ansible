@@ -1,0 +1,33 @@
+---
+  - name: Creating require directories for redis
+    file: dest={{ item }} state=directory
+    with_items:
+        - "{{ redis_work_dir }}"
+        - "{{ redis_service_dir }}/{{ redis_port }}"
+        - "{{ redis_data_dir }}/{{ redis_port }}"
+        - "{{ redis_run_dir }}/{{ redis_port }}"
+        - "{{ redis_log_dir }}/{{ redis_port }}"
+
+#  - name: Downloading Redis 
+#    get_url: url={{ redis_download_link }} dest={{ redis_work_dir }}/redis-{{ redis_version }}.tar.gz
+#
+#  - name: Extracting Redis
+#    unarchive: src={{ redis_work_dir }}/redis-{{ redis_version }}.tar.gz dest={{ redis_work_dir }}
+#  
+#  - name: Compling Redis
+#    shell: make && make install chdir={{ redis_work_dir }}/redis-{{ redis_version }} 
+#
+  - name: Registering Master IP
+    local_action: copy dest=/tmp/master_ip content={{  ansible_default_ipv4.address }} 
+    local_action: copy dest=/tmp/master_port content={{ redis_port }} 
+    when: redis_master
+
+  - set_fact: master_ip={{ lookup('file','/tmp/master_ip') }}
+  - set_fact: master_port={{ lookup('file','/tmp/master_port') }}
+    
+  - name: Configuring redis server
+    template: src=redis.conf.jinja dest={{ redis_service_dir }}/{{ redis_port }}/redis-server.conf
+
+  - name: Configure redis sentinel
+    template: src=redis-sentinel.conf.jinja dest={{ redis_service_dir }}/{{ redis_port }}/redis-sentinel.conf
+

@@ -1,0 +1,9 @@
+port {{ sentinel_port }}
+pidfile {{ redis_run_dir }}{{ redis_port }}/redis-server-sentinel.pid
+logfile {{ redis_log_dir }}/{{ redis_port }}/redis-server-sentinel.log
+
+sentinel monitor mymaster {{ master_ip }} {{ master_port }} 2
+sentinel down-after-milliseconds mymaster 5000
+sentinel failover-timeout mymaster 90000
+sentinel can-failover mymaster yes
+sentinel parallel-syncs mymaster 1

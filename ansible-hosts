@@ -1,0 +1,6 @@
+# define hosts here then define slave/master in site.yml 
+[master_server]
+localhost ansible_ssh_user=devops ansible_ssh_pass=x ansible_sudo_pass=x
+
+[slave_server]
+192.168.122.1 ansible_ssh_user=rahul ansible_ssh_pass=p\@ssw1rd ansible_sudo_pass=p\@ssw1rd

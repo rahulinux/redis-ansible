@@ -1,0 +1,17 @@
+---
+  - name: Install list of packages
+    action: 
+       apt 
+       update_cache=yes 
+       cache_valid_time=84600
+       pkg={{item}} 
+       state=installed
+    with_items:
+    - unzip
+    - build-essential
+    - openssl
+    - tcl8.5
+    sudo: true
+    when: "{{is_ubuntu}}" 
+  
+  #- apt: upgrade=yes

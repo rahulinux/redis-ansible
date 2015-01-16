@@ -1,0 +1,11 @@
+---
+  - hosts: master_server
+    sudo: true
+    roles:
+       #- common
+       - { role: redis, redis_port: '6379', sentinel_port: '29000', redis_master: true }
+
+  - hosts: slave_server
+    sudo: true
+    roles:
+      - { role: redis, redis_port: '6380', sentinel_port: '29001' }

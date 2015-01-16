@@ -1,0 +1,17 @@
+---
+# common
+sshd_config: '/etc/ssh/sshd_config'
+is_ubuntu: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' 
+is_centos: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+# Redis server details
+redis_version: '2.6.13'
+redis_download_link: 'https://redis.googlecode.com/files/redis-{{ redis_version }}.tar.gz'
+# redis_service dir, /etc/redis/<port>/
+redis_service_dir: '/etc/redis/'
+redis_data_dir: '/var/lib/redis/'
+redis_run_dir: '/var/run/redis/'
+redis_log_dir: '/var/log/redis/'
+# all download pkg in below dir
+redis_work_dir: '/usr/local/src/redis'
+redis_master: false

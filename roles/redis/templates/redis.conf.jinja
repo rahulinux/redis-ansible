@@ -1,0 +1,7 @@
+appendonly yes
+rdbcompression yes
+pidfile /var/run/redis/{{ redis_port }}/redis-server.pid
+port {{ redis_port }}
+logfile /var/log/redis/{{ redis_port }}/redis-server.log
+dir {{ redis_data_dir }}/{{ redis_port }}
+appendfilename {{ redis_data_dir }}/{{ redis_port }}/appendonly.aof
