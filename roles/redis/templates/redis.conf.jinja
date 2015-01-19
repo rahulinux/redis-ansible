@@ -1,7 +1,22 @@
 appendonly yes
 rdbcompression yes
+
+# By default Redis does not run as a daemon. Use 'yes' if you need it.
+# Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
+daemonize yes 
+
 pidfile /var/run/redis/{{ redis_port }}/redis-server.pid
 port {{ redis_port }}
 logfile /var/log/redis/{{ redis_port }}/redis-server.log
 dir {{ redis_data_dir }}/{{ redis_port }}
 appendfilename {{ redis_data_dir }}/{{ redis_port }}/appendonly.aof
+
+{% if redis_master is not sameas true %}
+# Master-Slave replication. Use slaveof to make a Redis instance a copy of
+# another Redis server. Note that the configuration is local to the slave
+# so for example it is possible to configure the slave to save the DB with a
+# different interval, or to listen to another port, and so on.
+#
+# slaveof <masterip> <masterport>
+slaveof {{ master_ip }} {{ master_port }}
+{% endif %}

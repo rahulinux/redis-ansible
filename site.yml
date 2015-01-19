@@ -1,11 +1,16 @@
 ---
-  - hosts: master_server
-    sudo: true
-    roles:
-       #- common
-       - { role: redis, redis_port: '6379', sentinel_port: '29000', redis_master: true }
+# Specify Only One Master Server 
+# It must have redis_master: True
 
-  - hosts: slave_server
+  - hosts: master_server 
     sudo: true
     roles:
-      - { role: redis, redis_port: '6380', sentinel_port: '29001' }
+       - common
+       - { role: redis, redis_port: 6379, sentinel_port: 29000, redis_master: True }
+
+# Slave Server
+  - hosts: slave_servers
+    sudo: true
+    roles:
+       - common
+       - { role: redis, redis_port: 6380, sentinel_port: 29001 }

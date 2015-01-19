@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Redis HA
 ========
 
@@ -10,3 +11,6 @@ There you three roles in this playbook
 
 
 
+=======
+# redis-ansible
+>>>>>>> cb20b431c4344c22240307ec7a863a573dfb6304
