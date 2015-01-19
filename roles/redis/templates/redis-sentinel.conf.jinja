@@ -26,12 +26,12 @@ sentinel monitor mymaster {{ master_ip }} {{ master_port }} 2
 # Down).
 #
 # Default is 30 seconds.
-sentinel down-after-milliseconds mymaster 5000 # 5 sec 
+sentinel down-after-milliseconds mymaster 5000
 
 # sentinel can-failover <master-name> <yes|no>
 #
 # Specify if this Sentinel can start the failover for this master.
-sentinel can-failover mymaster yes
+# sentinel can-failover mymaster yes
 
 # sentinel failover-timeout <master-name> <milliseconds>
 #
